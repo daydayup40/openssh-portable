@@ -95,7 +95,7 @@ static const struct sshcipher ciphers[] = {
 # endif /* OPENSSL_NO_BF */
 #endif /* WITH_SSH1 */
 #ifdef WITH_OPENSSL
-	{ "none",	SSH_CIPHER_NONE, 8, 0, 0, 0, 0, 0, EVP_enc_null },
+	{ "none",	SSH_CIPHER_SSH2, 8, 0, 0, 0, 0, 0, EVP_enc_null },
 	{ "3des-cbc",	SSH_CIPHER_SSH2, 8, 24, 0, 0, 0, 1, EVP_des_ede3_cbc },
 # ifndef OPENSSL_NO_BF
 	{ "blowfish-cbc",
@@ -128,7 +128,7 @@ static const struct sshcipher ciphers[] = {
 	{ "aes128-ctr",	SSH_CIPHER_SSH2, 16, 16, 0, 0, 0, CFLAG_AESCTR, NULL },
 	{ "aes192-ctr",	SSH_CIPHER_SSH2, 16, 24, 0, 0, 0, CFLAG_AESCTR, NULL },
 	{ "aes256-ctr",	SSH_CIPHER_SSH2, 16, 32, 0, 0, 0, CFLAG_AESCTR, NULL },
-	{ "none",	SSH_CIPHER_NONE, 8, 0, 0, 0, 0, CFLAG_NONE, NULL },
+	{ "none",	SSH_CIPHER_SSH2, 8, 0, 0, 0, 0, CFLAG_NONE, NULL },
 #endif /* WITH_OPENSSL */
 	{ "chacha20-poly1305@openssh.com",
 			SSH_CIPHER_SSH2, 8, 64, 0, 16, 0, CFLAG_CHACHAPOLY, NULL },
