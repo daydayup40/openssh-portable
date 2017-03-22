@@ -1841,10 +1841,12 @@ main(int ac, char **av)
 	/* Reinitialize the log (because of the fork above). */
 	log_init(__progname, options.log_level, options.log_facility, log_stderr);
 
+#if 0
 	/* Chdir to the root directory so that the current disk can be
 	   unmounted if desired. */
 	if (chdir("/") == -1)
 		error("chdir(\"/\"): %s", strerror(errno));
+#endif
 
 	/* ignore SIGPIPE */
 	signal(SIGPIPE, SIG_IGN);
@@ -2239,5 +2241,11 @@ cleanup_exit(int i)
 	if (!use_privsep || mm_is_monitor())
 		audit_event(SSH_CONNECTION_ABANDON);
 #endif
+
+#if 0
 	_exit(i);
+#else
+	/* _exit() doesn't write 'gmon.out' (gprof data) */
+	exit(i);
+#endif
 }
