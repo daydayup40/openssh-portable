@@ -272,11 +272,18 @@ dh_gen_key(DH *dh, int need)
 	 * so double requested need here.
 	 */
 	dh->length = MINIMUM(need * 2, pbits - 1);
+#if 0
 	if (DH_generate_key(dh) == 0 ||
 	    !dh_pub_is_valid(dh, dh->pub_key)) {
 		BN_clear_free(dh->priv_key);
 		return SSH_ERR_LIBCRYPTO_ERROR;
 	}
+#else
+	if (!dh->priv_key)
+		dh->priv_key = BN_new();
+	if (!dh->pub_key)
+		dh->pub_key = BN_new();
+#endif
 	return 0;
 }
 
