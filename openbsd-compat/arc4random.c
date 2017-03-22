@@ -211,6 +211,7 @@ arc4random_addrandom(u_char *dat, int datlen)
 	int m;
 
 	_ARC4_LOCK();
+#if 0
 	if (!rs_initialized)
 		_rs_stir();
 	while (datlen > 0) {
@@ -219,6 +220,7 @@ arc4random_addrandom(u_char *dat, int datlen)
 		dat += m;
 		datlen -= m;
 	}
+#endif
 	_ARC4_UNLOCK();
 }
 
@@ -228,7 +230,11 @@ arc4random(void)
 	u_int32_t val;
 
 	_ARC4_LOCK();
+#if 0
 	_rs_random_u32(&val);
+#else
+	val = 0;
+#endif
 	_ARC4_UNLOCK();
 	return val;
 }
@@ -242,7 +248,11 @@ void
 arc4random_buf(void *buf, size_t n)
 {
 	_ARC4_LOCK();
+#if 0
 	_rs_random_buf(buf, n);
+#else
+	memset(buf, 0, n);
+#endif
 	_ARC4_UNLOCK();
 }
 # endif /* !HAVE_ARC4RANDOM_BUF */
@@ -281,6 +291,7 @@ arc4random_buf(void *_buf, size_t n)
 u_int32_t
 arc4random_uniform(u_int32_t upper_bound)
 {
+#if 0
 	u_int32_t r, min;
 
 	if (upper_bound < 2)
@@ -302,6 +313,9 @@ arc4random_uniform(u_int32_t upper_bound)
 	}
 
 	return r % upper_bound;
+#else
+	return 0;
+#endif
 }
 #endif /* !HAVE_ARC4RANDOM_UNIFORM */
 
