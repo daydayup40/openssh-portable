@@ -220,7 +220,7 @@ int *startup_pipes = NULL;
 int startup_pipe;		/* in child */
 
 /* variables used for privilege separation */
-int use_privsep = -1;
+int use_privsep = PRIVSEP_OFF;
 struct monitor *pmonitor = NULL;
 int privsep_is_preauth = 1;
 
